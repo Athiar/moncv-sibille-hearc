@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "bootstrap-css-only": "^3.3.7",
-    "bootstrap.native": "^2.0.16"
+    "bootstrap.native": "^2.0.16",
+    "jquery-smooth-scroll": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
