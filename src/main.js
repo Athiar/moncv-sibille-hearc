@@ -29,7 +29,7 @@ $(document).ready(() => {
     });
 
     $('.progress-bar').each((i, progressbar) => {
-        var ctx = $(progressbar).parent()[0].getContext('2d');
+        const ctx = $(progressbar).parent()[0].getContext('2d');
         window.myDoughnut = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -44,7 +44,7 @@ $(document).ready(() => {
             },
             options: {
                 cutoutPercentage: 75,
-                responsive: false, // A améliorer si possible
+                responsive: true,
                 tooltips: {
                     enabled: false
                 },
