@@ -11,6 +11,14 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 var env = config.build.env
 
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+
+module.exports = {
+  plugins: [
+    new UglifyJSPlugin()
+  ]
+}
+
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({

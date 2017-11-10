@@ -6,11 +6,6 @@ import Chart from 'chart.js';
 
 $(document).ready(() => {
     $('a').smoothScroll();
-
-    // $('.progress-bar').each((i, progressbar) => {
-        // $('body').prepend('<h1> valeur : ' + $(progressbar).attr('aria-valuenow') + '</h1>');
-    // });
-
     Chart.pluginService.register({
         beforeDraw: function (chart) {
             var width = chart.chart.width;
@@ -21,7 +16,7 @@ $(document).ready(() => {
             ctx.font = fontSize + 'em sans-serif';
             ctx.textBaseline = 'middle';
             var text = chart.chart.data.datasets[0].data[0] + '%';
-            var textX = Math.round((width - ctx.measureText(text).width) / 2) + 5;
+            var textX = Math.round((width - ctx.measureText(text).width) / 2) + 3;
             var textY = (height / 2) + 17;
             ctx.fillText(text, textX, textY);
             ctx.save();
@@ -66,3 +61,15 @@ $(document).ready(() => {
         });
     });
 });
+
+window.sendMessage = function () {
+    const { TelegramClient } = require('messaging-api-telegram');
+    const clientTG = TelegramClient.connect('320992887:AAHOQFbzqE1TMcGWDU2x7357tHkkR_d8tKs');
+    clientTG.sendMessage('157513870', 'Message reçu de ' + $('#inputName').val() + ' (' + $('#inputEmail').val() + ') de l\'entreprise ' + $('#inputEntreprise').val() + ' : ' + $('#message').val());
+    window.alert($('Votre message a bien été envoyé.').text);
+    $('#inputName').val = '';
+    $('#inputEntreprise').val = '';
+    $('#inputEmail').val = '';
+    $('#message').val = '';
+};
+
