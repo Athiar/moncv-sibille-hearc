@@ -63,13 +63,15 @@ $(document).ready(() => {
 });
 
 window.sendMessage = function () {
-    const { TelegramClient } = require('messaging-api-telegram');
-    const clientTG = TelegramClient.connect('320992887:AAHOQFbzqE1TMcGWDU2x7357tHkkR_d8tKs');
-    clientTG.sendMessage('157513870', 'Message reçu de ' + $('#inputName').val() + ' (' + $('#inputEmail').val() + ') de l\'entreprise ' + $('#inputEntreprise').val() + ' : ' + $('#message').val());
-    window.alert($('Votre message a bien été envoyé.').text);
-    $('#inputName').val = '';
-    $('#inputEntreprise').val = '';
-    $('#inputEmail').val = '';
-    $('#message').val = '';
+    if ($('#inputName').val().length !== 0 && $('#inputEmail').val().length !== 0 && $('#inputEntreprise').val().length !== 0 && $('#message').val().length !== 0) {
+        const { TelegramClient } = require('messaging-api-telegram');
+        const clientTG = TelegramClient.connect('320992887:AAHOQFbzqE1TMcGWDU2x7357tHkkR_d8tKs');
+        clientTG.sendMessage('157513870', 'Message reçu de ' + $('#inputName').val() + ' (' + $('#inputEmail').val() + ') de l\'entreprise ' + $('#inputEntreprise').val() + ' : ' + $('#message').val()).then(function () {
+            window.alert('Votre message a bien été envoyé.');
+            $('#message').val('');
+        }).catch(function (err) {
+            window.alert('Erreur ' + err + '. Désolé votre message n\'a pas pu être envoyé.');
+        });
+    }
 };
 
