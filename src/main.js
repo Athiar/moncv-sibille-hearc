@@ -72,6 +72,8 @@ window.sendMessage = function () {
         }).catch(function (err) {
             window.alert('Erreur ' + err + '. Désolé votre message n\'a pas pu être envoyé.');
         });
+    } else {
+        window.alert('Erreur, veuillez compléter tous les champs.');
     }
 };
 
