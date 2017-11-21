@@ -41,7 +41,7 @@ npm run dev
 Configurations de base du projet
 -------------
 Pour que l'éditeur nous affiche des erreurs lorsque notre code est mal indenté, qu'il manque des points-virgules, ou qu'il manque une ligne vide à la fin d'un fichier sources; Ajoutez dans le fichier *.eslintrc.js* :
-```
+```javascript
 {
 	...,
 	"rules": {
@@ -110,7 +110,7 @@ Créez un fichier .gitattributes à la racine pour indiquer à GIT quels fichier
 ############################################################
 ```
 Ajoutez dans le fichier *src/main.js* ces 2 lignes qui permettent d'inclure  :
-```
+```javascript
 import 'bootstrap.native';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 ```
@@ -128,7 +128,7 @@ git remote add origin https://github.com/heg-web/moncv-sibille-hearc.git
 npm install push-dir --save-dev
 ```
 Rajoutez ces quelques lignes dans le fichier *package.json* pour que nous puissions utiliser la commande *npm run deploy* qui permettra de pousser les modifications sur notre branche gh-pages :
-```
+```javascript
 "scripts": {
 ...,
 "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup --verbose"
@@ -144,7 +144,7 @@ git add . --all
 git commit -m 'message à propos du commit'
 # Envoie le commit sur la branche "pages" (d'après notre configuration) :
 npm run deploy
-# PEnvoie les modifications au serveur (par exemple la branche master). Les prochaines fois, faire juste "git push" car les même paramètres seront utilisés grâce au -u :
+# Envoie les modifications au serveur (par exemple la branche master). Les prochaines fois, faire juste "git push" car les même paramètres seront utilisés grâce au -u :
 git push -u origin master
 ```
 Autres  commandes git qui pourraient être utiles :
@@ -198,11 +198,11 @@ Installe le package Chart.js via npm :
 npm install chart.js --save
 ```
 Puis incluez-le dans votre projet :
-```
+```javascript
 import Chart from 'chart.js';
 ```
 Pour faire en sorte que toutes les progress-bar de la page se transforme en graphique après le chargement, ajoutez ce code dans le fichier *main.js* ((dans la fonction *$(document).ready(()*). Il permet de définir les options de nos charts :
-```
+```javascript
 $('.progress-bar').each((i, progressbar) => {
         const ctx = $(progressbar).parent()[0].getContext('2d');
         window.myDoughnut = new Chart(ctx, {
@@ -242,7 +242,7 @@ $('.progress-bar').each((i, progressbar) => {
     });
 ```
 Ce [code javascript](https://jsfiddle.net/cmyker/ooxdL2vj/) (également placé dans le *$(document).ready(()*) permet d'afficher le pourcentage de chaque progressbar à l'intérieur du 
-```
+```javascript
 Chart.pluginService.register({
         beforeDraw: function (chart) {
             var width = chart.chart.width;
@@ -263,7 +263,7 @@ Chart.pluginService.register({
 Plugin Telegram
 ---------------
 Pour pouvoir tester npm avec d'autres plugins javascript, j'ai installé le module *messaging-api-telegram* qui permet d'utiliser l'API de [Telegram](telegram.org). J'ai utilisé le formulaire que j'avais préalablement fait en HTML sur la page de mon CV pour faire en sorte que ça m'envoie un message privé sur Telegram. C'est plus facile que de faire un envoi par email car cela ne nécessite pas de serveur SMTP. Pour que notre package fonctionne, il faut avoir en sa possession (token d'accès) un bot Telegram (peut être crée facilement avec en contactant [@BotFather](https://telegram.me/BotFather)).
-```
+```javascript
 // initialise le module TelegramClient 
 const { TelegramClient } = require('messaging-api-telegram');
 // Changez la chaine par l'accessToken de votre bot :
@@ -272,11 +272,11 @@ const client = TelegramClient.connect('12345678:AaBbCcDdwhatever');
 client.sendMessage(CHAT_ID, 'hi');
 ```
 Vu que l'IDE affiche désormais une erreur lors de la compilation `via npm run build` j'ai dû désactivé UglifyJs qui permettait de rendre moins lisible notre code pour les humains une fois publié. En effet, Uglify ne semble pas reconnaître une nouvelle syntaxe utilisée par notre plugin Telegram. Dans le fichier *webpack.prod.conf.js*, commentez les lignes suivantes :
-```
+```javascript
 // new webpack.optimize.UglifyJsPlugin({
     //   compress: {
     //     warnings: false
     //   },
     //   sourceMap: true
     // }),
-    ```
+```
