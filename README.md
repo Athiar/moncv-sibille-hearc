@@ -1,6 +1,8 @@
 Projet "moncv" de Nicolas Sibille
 ================================
-Ce projet a pour but de découvrir les outils de technologies web. Ce projet utilise vue.js
+
+Ce projet a pour but de découvrir les outils de technologies web.
+
 Installation des outils nécessaires :
 -------------------------------------
 Installez :
@@ -13,16 +15,16 @@ Installez :
 Création de la base du projet
 ------------------
 Création d'un nouveau projet avec le template :
-``` bash
+```bash
 vue init webpack moncv
 ```
 Le programme vous posera plusieurs question pour connaître la configuration désirée du projet. Indiquez le nom du projet, sa description, son auteur. Puis "standalone" pour *Vue build*, "No" pour install vue-router, "Yes" pour *Use ESLint*, "Standard" pour *Pick an ESLint preset*, "No" pour *Setup unit tests with Karama + Mocha* et "No" pour *Setup e2e tests with Nightwatch*.
 Installez ensuite les dépendences nécessaires :
-``` bash
+```bash
 npm install
 ```
 Supprimez *src/components* et le fichier *src/App.vue* de votre projet pour désinstaller Vue.js :
-``` bash
+```bash
 npm uninstall vue --save
 ```
 Si vous utilisez Vue.js, installez via l'interface graphique le plugin Vetur pour le contrôle syntaxique et le formatage des fichiers sources. Puis, dans *Fichier, Préférences, Paramètres*, recherchez *eslint.validate* et ajouter les lignes de configurations suivantes dans les settings utilisateur pour qu'eslint valide nos fichiers Vue. :
@@ -33,7 +35,7 @@ Si vous utilisez Vue.js, installez via l'interface graphique le plugin Vetur pou
     "vue" ]
 ```
 La base de votre projet est prête, vous pouvez tester le fonctionnement de sa version de développement (locale).
-``` bash
+```bash
 npm run dev
 ```
 Configurations de base du projet
@@ -117,7 +119,7 @@ Gestion du projet avec GIT
 Git est un outil libre et gratuit permettant de gérer facilement les versions d'un projet lorsque plusieurs personnes travaillent dessus.
 Une fois installé, connectez-vous avec votre compte GitHub sur le logiciel GIT. Nous allons par la suite pousser le projet sur l'espace du groupe GitHub qui a été crée pour notre classe, vérifiez donc que vous y avez accès (ou que vous avez un autre endroit pour le mettre en ligne).
 Positionnez-vous dans le dossier de votre projet et entrez la commande suivante pour créer un repository git :
-``` bash
+```bash
 # Crée le repository git dans le dossier actuel :
 git init
 # Défini le serveur distant pour notre repository :
@@ -133,7 +135,7 @@ Rajoutez ces quelques lignes dans le fichier *package.json* pour que nous puissi
 },
 ```
 Pour commiter le projet :
-``` bash
+```bash
 # Compile le projet :
 npm run build
 # Ajoute les fichiers modifiés au stage :
@@ -146,7 +148,7 @@ npm run deploy
 git push -u origin master
 ```
 Autres  commandes git qui pourraient être utiles :
-``` bash
+```bash
 # Affiche l'état des fichiers dans git (par exemple modifiés ou non depuis le dernier commit) :
 git status
 # Affiche l'historique des commits :
@@ -164,12 +166,12 @@ Ajout de Bootstrap
 ------------------
 Bootstrap est un framework web permettant de simplifier le développement d'un site web. De nombreux composants sont directement utilisables . Bootstrap simplifie l'implémentation de pages web mobile-first grâce à un système avancé de grille qui s'adapte en fonction de la taille de l'écran du client.
 Pour ajouter Bootstrap dans notre projet :
-``` bash
+```bash
 npm install bootstrap-css-only@3 --save
 npm install bootstrap.native --save
 ```
 Nous pouvons ensuite utiliser nos classes Bootstrap pour adapter le design de notre page. Petit exemple de 3 petites boites html qui se s'ajustent en fonction de la largeur de la page affichée :
-``` html
+```html
 <div class="container">
   <div class="row">
     <div class="col-sm">
@@ -184,13 +186,15 @@ Nous pouvons ensuite utiliser nos classes Bootstrap pour adapter le design de no
   </div>
 </div>
 ```
+
 Dans notre projet de CV, il sert également à afficher des progress-bar quand le javascript n'est pas activé, à vérifier les informations du formulaire, styliser la page, etc.
 Pour plus d'informations sur Bootstrap : https://getbootstrap.com/docs/3.3/
+
 Chart.js
 --------
 Dans notre projet nous utilisons déjà [jQuery](https://jquery.com) (bibliothèque javascript), qui est un pré-requis pour le plugin [Chart.js](https://www.npmjs.com/package/chart.js). Cette librairie permet d'afficher des graphiques sur notre page via du code Javascript. Ici, nous avons transformé nos progress-bar en graphiques en cercle.
 Installe le package Chart.js via npm :
-``` bash
+```bash
 npm install chart.js --save
 ```
 Puis incluez-le dans votre projet :
@@ -267,3 +271,12 @@ const client = TelegramClient.connect('12345678:AaBbCcDdwhatever');
 // Envoie un message Telegram à une personne (remplacez le CHAT_ID par votre n° d'identification Telegram) :
 client.sendMessage(CHAT_ID, 'hi');
 ```
+Vu que l'IDE affiche désormais une erreur lors de la compilation `via npm run build` j'ai dû désactivé UglifyJs qui permettait de rendre moins lisible notre code pour les humains une fois publié. En effet, Uglify ne semble pas reconnaître une nouvelle syntaxe utilisée par notre plugin Telegram. Dans le fichier *webpack.prod.conf.js*, commentez les lignes suivantes :
+```
+// new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   },
+    //   sourceMap: true
+    // }),
+    ```
